@@ -19,7 +19,7 @@ class DoctorSeeder extends Seeder
     {
         DB::table('doctors')->insert([
             'fullname' => "malika",
-            'phone' => "",//9979618
+            'phone' => "99 808 28 80",//9979618
             'experience' => Str::random(20),
         ]);
     }
