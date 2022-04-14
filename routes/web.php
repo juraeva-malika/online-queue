@@ -14,10 +14,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('layout');
 });
 
 Route::get('/malika',
     [App\Http\Controllers\Controller::class, 'malika']
 );
 
+
+// Route::resource("doctors",App\Http\Controllers\Controller::class);
+//bunga teng
+
+Route::get("doctors",[App\Http\Controllers\DoctorController::class,"index"])->name("doctor.index");
+Route::get("doctors/create",[App\Http\Controllers\DoctorController::class,"create"]);
+Route::post("doctors/create",[App\Http\Controllers\DoctorController::class,"store"]);
+// Route::update("doctors/{id}",App\Http\Controllers\DoctorController::class,"update");
+// Route::delete("doctors/{id}",App\Http\Controllers\DoctorController::class,"delete");
