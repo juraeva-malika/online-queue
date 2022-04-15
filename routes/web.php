@@ -14,12 +14,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('layout');
+    return view('welcome');
 });
-
+Route::get('/services', function () {
+    return view('our-services.index');
+});
 Route::get('/malika',
     [App\Http\Controllers\Controller::class, 'malika']
 );
+
 
 
 // Route::resource("doctors",App\Http\Controllers\Controller::class);
