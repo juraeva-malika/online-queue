@@ -11,7 +11,12 @@ class Order extends Model
     protected $fillable = [
         'id',
         'doctor_id',
-        'position_id',
+        'service_id',
+        'date',
+        'time', 
+        'details',
+        "fullname",
+        "phone"
     ];
     public $timestamps = false;
 }

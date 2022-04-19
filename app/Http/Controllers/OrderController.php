@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -34,7 +35,15 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->input());
+        $appointment = Order::create($request->input());
+        dd($appointment);
+    }
+
+
+    public function getTime(Request $request)
+    {
+        return response()->json(["9:00","10:00","16:00"]);
     }
 
     /**

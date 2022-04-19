@@ -12,10 +12,5 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function malika(){
-        
-        return view(request()->input("test"));
-    }
-
     
 }
