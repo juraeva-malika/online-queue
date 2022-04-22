@@ -18,5 +18,17 @@ class Order extends Model
         "fullname",
         "phone"
     ];
+    protected $dates = ['date', ];
+    protected $casts = [
+        'date'  => 'date:m/d/Y',
+        
+    ];
     public $timestamps = false;
+
+    public function service(){
+        return $this->belongsTo(Service::class,"service_id");
+    }
+    public function doctor(){
+        return $this->belongsTo(Doctor::class,"doctor_id");
+    }
 }

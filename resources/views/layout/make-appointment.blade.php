@@ -68,15 +68,15 @@
                                     </select>
                                 </div>
                                 <div class="col-12 col-sm-6">
-                                    <div class="date" id="date" data-target-input="nearest">
-                                        <input type="text" name="date"
+                                    <div class="date" id="date" data-target-input="nearest"  style="position: relative">
+                                        <input type="text" autocomplete="off" name="date"
                                             class="form-control border-0 datetimepicker-input"
                                             placeholder="Выберите дату" data-target="#date" data-toggle="datetimepicker" style="height: 55px;">
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-6">
-                                    <div class="time" id="time" data-target-input="nearest">
-                                        <input type="text" name="time"
+                                    <div class="time" id="time" data-target-input="nearest"  style="position: relative">
+                                        <input type="text" autocomplete="off" name="time"
                                             class="form-control border-0 datetimepicker-input"
                                             placeholder="Выберите время" data-target="#time" data-toggle="datetimepicker" style="height: 55px;">
                                     </div>

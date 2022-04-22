@@ -1,4 +1,6 @@
- <form action="" method="POST" >
+@extends("admin.admin-layout")
+@section("content")
+    <form action="" method="POST" >
         @csrf
 
         <div class="row">
@@ -26,3 +28,4 @@
         </div>
 
     </form>
+@stop

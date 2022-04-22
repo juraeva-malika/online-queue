@@ -1,0 +1,9 @@
+@extends("layout.layout")
+@section("content")
+    @include("layout.home-slider")
+    @include("layout.services")
+    @include("layout.whytrustus")
+    @include("layout.our-doctors")
+    @include("layout.make-appointment")
+    @include("layout.feedbacks")
+@stop
