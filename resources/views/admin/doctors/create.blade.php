@@ -7,19 +7,25 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Name:</strong>
-                    <input type="text" name="fullname" class="form-control" placeholder="Name">
+                    <input type="text" name="fullname" class="form-control" placeholder="">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                    <strong>phone:</strong>
-                    <input type="text" name="phone" class="form-control" placeholder="Put the price">
+                    <strong>Phone:</strong>
+                    <input type="text" name="phone" class="form-control" placeholder="">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Experience:</strong>
-                    <input type="text" name="experience" class="form-control" placeholder="Name">
+                  <div class="form-group">
+                    <label for="exampleFormControlSelect2">Doctor's Services:</label>
+                    <select name="service_ids[]" multiple="multiple"  class="form-control" id="exampleFormControlSelect2">
+                        @foreach (App\Models\Service::get() as $service  )
+                        <option value={{$service->id}}>
+                        {{$service->name}}
+                            </option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">

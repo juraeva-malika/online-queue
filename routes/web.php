@@ -63,20 +63,24 @@ Route::prefix("admin")->group(function(){
         return view("admin.admin-layout");
     });
     Route::prefix("doctors")->group(function(){
-        Route::get("/", [DoctorController::class,"index"]);
+        Route::get("/", [DoctorController::class,"index"])->name("admin.doctor.index");
         Route::get("/create",[DoctorController::class,"create"]);
         Route::post("/create",[DoctorController::class,"store"]);
         // Route::update("/{id}",App\Http\Controllers\DoctorController::class,"update");
         // Route::delete("/{id}",App\Http\Controllers\DoctorController::class,"delete"); 
     });
     Route::prefix("services")->group(function(){
-        Route::get("/", [ServiceController::class,"index"]);
+        Route::get("/", [ServiceController::class,"index"])->name("admin.service.index");
         Route::get("/create", [ServiceController::class,"create"]);
+        Route::post("/create", [ServiceController::class,"store"]);
+        Route::post("/", [ServiceController::class, "destroy"]);
 
     });
     Route::prefix("orders")->group(function(){
-        Route::get("/",[OrderController::class, "index"]);
+        Route::get("/",[OrderController::class, "index"])->name("admin.order.index");
         Route::get("/create",[OrderController::class, "create"]);
+        Route::post("/create",[OrderController::class, "store"]);
+        Route::post("/",[OrderController::class, "destroy"]);
     });
    
     

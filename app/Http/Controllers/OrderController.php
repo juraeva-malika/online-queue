@@ -38,44 +38,43 @@ class OrderController extends Controller
     {
         // dd($request->input());
         $appointment = Order::create($request->input());
-        dd($appointment);
     }
 
 
     public function getTime(Request $request)
     {
-        $time = "30";   
-        $service = Service::where("id",$request->query("service_id"))->first();
-        $service1 = 1; //15 min
-        $service2 = 2; //30 min
-        $service4 = 4; //1 hour
-        $service6 = 6; //1:30 hours
-        $service8 = 8; //2 hours
-        $free_times=collect();
-        $count = 0;
-        $time = 9;
-        for ($i=0; $i < 48 ; $i++) { 
+        // $time = "30";   
+        // $service = Service::where("id",$request->query("service_id"))->first();
+        // $service1 = 1; //15 min
+        // $service2 = 2; //30 min
+        // $service4 = 4; //1 hour
+        // $service6 = 6; //1:30 hours
+        // $service8 = 8; //2 hours
+        // $free_times=collect();
+        // $count = 0;
+        // $time = 9;
+        // for ($i=0; $i < 48 ; $i++) { 
             
             
-            $minutes = 15 * $count;
-            if($count == 4){
-                $count = 0;
-                $time = $time + 1;
-                $free_times->add($time.":00");
-            }else{
-                $free_times->add($time.":". ($i == 0 ? "00" : $minutes));
-            }
+        //     $minutes = 15 * $count;
+        //     if($count == 4){
+        //         $count = 0;
+        //         $time = $time + 1;
+        //         $free_times->add($time.":00");
+        //     }else{
+        //         $free_times->add($time.":". ($i == 0 ? "00" : $minutes));
+        //     }
             
-            $count = $count + 1;
-        }
-        $orders = Order::where("doctor_id",$request->query("doctor_id"))
-        ->whereDate("date", Carbon::createFromFormat("m/d/Y",$request->query("date")) )
-        ->with("service")
-        ->get()->pluck("service.time",'time')
-        ;   
+        //     $count = $count + 1;
+        // }
+        // $orders = Order::where("doctor_id",$request->query("doctor_id"))
+        // ->whereDate("date", Carbon::createFromFormat("m/d/Y",$request->query("date")) )
+        // ->with("service")
+        // ->get()->pluck("service.time",'time')
+        // ;   
 
-        dd($request->query(),$service->time,$orders->toArray(),$free_times);
-        return response()->json(["9:00","10:00","16:00"]);
+        // dd($request->query(),$service->time,$orders->toArray(),$free_times);
+        return response()->json([ "9:00","10:00","16:00"]);
     }
 
     /**
@@ -118,8 +117,10 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy()
     {
-        //
+        Order::where("id",request()->input("id"))->delete();
+        return redirect()->route("admin.order.index");
+        
     }
 }

@@ -19,7 +19,11 @@
                         <td>{{$service->time}}</td>
                         <td>
                             <button class="btn btn-secondary mr-3">Edit</button>
-                            <button class="btn btn-danger">Delete</button>
+                            <form method="post" action="/admin/services?id={{$service->id}}">
+                                @csrf
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                            
                         </td>
                     </tr>
                 @endforeach

@@ -17,13 +17,13 @@ class DoctorPositionSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('doctor_positions')->insert([
-            "doctor_id" =>3,
-            "position_id" => 1,
-        ]);
-        DB::table('doctor_positions')->insert([
-            "doctor_id" =>4,
-            "position_id" => 3,
-        ]);
+        // DB::table('doctor_positions')->insert([
+        //     "doctor_id" =>3,
+        //     "position_id" => 1,
+        // ]);
+        // DB::table('doctor_positions')->insert([
+        //     "doctor_id" =>4,
+        //     "position_id" => 3,
+        // ]);
     }
 }

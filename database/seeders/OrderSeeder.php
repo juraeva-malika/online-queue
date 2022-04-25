@@ -18,13 +18,13 @@ class OrderSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('orders')->insert([
-            "date"=> Carbon::now(),
-            "time"=> Carbon::now()->toTimeString(),
-            "fullname"=>"Sadaf Zamonova",
-            "phone"=>"+998992369456",
-            "doctor_id" => Doctor::inRandomOrder()->first()->id,
-            "service_id" => Service::inRandomOrder()->first()->id,
-        ]);
+        // DB::table('orders')->insert([
+        //     "date"=> Carbon::now(),
+        //     "time"=> Carbon::now()->toTimeString(),
+        //     "fullname"=>"Sadaf Zamonova",
+        //     "phone"=>"+998992369456",
+        //     "doctor_id" => Doctor::inRandomOrder()->first()->id,
+        //     "service_id" => Service::inRandomOrder()->first()->id,
+        // ]);
     }
 }

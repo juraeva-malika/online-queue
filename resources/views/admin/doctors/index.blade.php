@@ -8,7 +8,7 @@
                     <th scope="col">id</th>
                     <th scope="col">fullname</th>
                     <th scope="col">phone</th>
-                    <th scope="col">experience</th>
+                    <th scope="col">services</th>
                     <th>action</th>
                 </tr>
             </thead>
@@ -18,7 +18,11 @@
                         <th scope="row">{{$doctor->id}}</th>
                         <td>{{$doctor->fullname}}</td>
                         <td>{{$doctor->phone}}</td>
-                        <td>{{$doctor->experience}}</td>
+                        <td>
+                        @foreach ($doctor->services  as $service  )
+                            {{$service->name}}
+                        @endforeach
+                        </td>
                         <td>
                             <button class="btn btn-secondary mr-3">Edit</button>
                             <button class="btn btn-danger">Delete</button>

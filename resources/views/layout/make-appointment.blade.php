@@ -26,69 +26,8 @@
                     </div>
                 </div>
                 <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
-                        <script>
-                          function handleInput(){
-                              fetch("/get-time").then(async c => {
-                                   console.log(await c.json()) 
-                              })
-                          }
-                        </script>
-
                     <div class="bg-light rounded h-100 d-flex align-items-center p-5">
-                        <form method="post" action={{route("make-appointment")}}>
-                            @csrf
-                            <div class="row g-3">
-                                <div class="col-12 col-sm-6">
-                                    <input type="text" name="fullname" class="form-control border-0" placeholder="Полное имя" style="height: 55px;">
-                                </div>
-                                <div class="col-12 col-sm-6">
-                                     <input type="text" name="phone" class="form-control border-0" placeholder="Номер телефона" style="height: 55px;">
-                                </div>
-                                <div class="col-12 col-sm-6">
-                                    <select name="doctor_id" class="form-select border-0" style="height: 55px;">
-                                        <option selected>Выберите доктора</option>
-                                        <option value="1">Alimov Jasur</option>
-                                        <option value="2">Venera Rafkatovna</option>
-                                        <option value="3">Maklakova Elena</option>
-                                        <option value="4">Umida Abdullayevna</option>
-                                        <option value="5">Sevilya Rafikovna</option>
-                                    </select>
-                                </div>
-                                <div class="col-12 col-sm-6">
-                                    <select name="service_id" class="form-select border-0" style="height: 55px;">
-                                        <option selected>Выберите услугу</option>
-                                        <option value="1">Implantology</option>
-                                        <option value="2">Surgery</option>
-                                        <option value="3">Therapy</option>
-                                        <option value="4">Restoration</option>
-                                        <option value="5">Orthodontics</option>
-                                        <option value="6">Orthopedics</option>
-                                        <option value="7">Childrens doctor</option>
-                                        <option value="8">Hygiene</option>
-                                    </select>
-                                </div>
-                                <div class="col-12 col-sm-6">
-                                    <div class="date" id="date" data-target-input="nearest"  style="position: relative">
-                                        <input type="text" autocomplete="off" name="date"
-                                            class="form-control border-0 datetimepicker-input"
-                                            placeholder="Выберите дату" data-target="#date" data-toggle="datetimepicker" style="height: 55px;">
-                                    </div>
-                                </div>
-                                <div class="col-12 col-sm-6">
-                                    <div class="time" id="time" data-target-input="nearest"  style="position: relative">
-                                        <input type="text" autocomplete="off" name="time"
-                                            class="form-control border-0 datetimepicker-input"
-                                            placeholder="Выберите время" data-target="#time" data-toggle="datetimepicker" style="height: 55px;">
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <textarea name="details" class="form-control border-0" rows="5" placeholder="Опишите что вас беспокоит"></textarea>
-                                </div>
-                                <div class="col-12">
-                                    <button class="btn btn-primary w-100 py-3" type="submit">Записаться</button>
-                                </div>
-                            </div>
-                        </form>
+                        @include("pages.our-services.appointment-form")
                     </div>
                 </div>
             </div>

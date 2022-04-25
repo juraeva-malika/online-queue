@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DoctorPosition extends Model
+class DoctorService extends Model
 {
     use HasFactory;
     protected $fillable = [
         'doctor_id',
-        'position_id',
+        'service_id'
     ];
     public $timestamps = false;
 }

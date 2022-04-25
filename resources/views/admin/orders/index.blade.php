@@ -32,10 +32,14 @@ echo $doctors[0]->fullname
                         <td>{{$order->date}}</td>
                         <td>{{$order->time}}</td>
                         <td>{{$order->details}}</td>
-                        <td></td>
+                        <td>{{$order->status}}</td>
                         <td>
                             <button class="btn btn-secondary mr-3">Edit</button>
-                            <button class="btn btn-danger">Delete</button>
+                            <form action="/admin/orders?id={{$order->id}}" method="post">
+                                @csrf
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                            
                         </td>
                     </tr>
                 @endforeach

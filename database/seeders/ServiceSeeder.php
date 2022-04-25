@@ -17,8 +17,8 @@ class ServiceSeeder extends Seeder
     public function run()
     {
         // DB::table('services')->insert([
-        //     "name"=> "Коронка",
-        //     "time"=>"30 mins",
+        //     "name"=> "restoration",
+        //     "time"=>"8",
         // ] );
         
     }

@@ -13,12 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('doctor_positions', function(Blueprint $table){
+        Schema::create('doctor_services', function (Blueprint $table) {
             $table->unsignedInteger('doctor_id');
-            $table->foreign('doctor_id')->references('id')->on('doctors');
-            $table->unsignedInteger('position_id');
-            $table->foreign('position_id')->references('id')->on('positions');
+            $table->unsignedInteger('service_id');
+            $table->primary(['doctor_id','service_id']);
+            
+            $table->foreign('doctor_id')->references('id')->on('doctors')->cascadeOnDelete();
+            $table->foreign('service_id')->references('id')->on('services')->cascadeOnDelete();
         });
+        
     }
 
     /**
@@ -28,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('doctor_positions');
+        Schema::dropIfExists('doctor_services');
     }
 };

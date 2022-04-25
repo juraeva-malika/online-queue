@@ -35,7 +35,8 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Service::create($request->input());
+        return redirect()->route('admin.service.index');
     }
 
     /**
@@ -78,8 +79,9 @@ class ServiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy()
     {
-        //
+        Service::where("id", request()->input("id"))->delete();
+        return redirect()->route("admin.service.index");
     }
 }
