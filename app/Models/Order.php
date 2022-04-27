@@ -8,6 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     use HasFactory;
+
+    const WAITING = "waiting";
+    const APPROVED = "approved";
+    const CANCELED = "canceled";
     protected $fillable = [
         'id',
         'doctor_id',
@@ -16,7 +20,8 @@ class Order extends Model
         'time', 
         'details',
         "fullname",
-        "phone"
+        "phone",
+        "status",
     ];
     protected $dates = ['date', ];
     protected $casts = [

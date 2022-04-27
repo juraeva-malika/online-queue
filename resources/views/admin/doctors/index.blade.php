@@ -24,8 +24,11 @@
                         @endforeach
                         </td>
                         <td>
-                            <button class="btn btn-secondary mr-3">Edit</button>
-                            <button class="btn btn-danger">Delete</button>
+                            <a href="/admin/doctors/edit/{{$doctor->id}}" class="btn btn-secondary mr-3">Edit</a>
+                            <form method="post" action="/admin/doctors?id={{$doctor->id}}" style="display:inline;">
+                                @csrf
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach

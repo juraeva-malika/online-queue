@@ -14,4 +14,9 @@ class Service extends Model
         'time',
     ];
     public $timestamps = false;
+
+    public function doctors(){
+        return $this->belongsToMany(Doctor::class,"doctor_services");
+    }
+    
 }

@@ -13,7 +13,7 @@
 <body class="hold-transition sidebar-mini layout-fixed">
   <div class="wrapper">
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
-      <a href="#" class="brand-link">
+      <a href="/admin" class="brand-link">
         <span class="brand-text font-weight-light">New Smile Clinic</span>
       </a>
       <div class="sidebar">

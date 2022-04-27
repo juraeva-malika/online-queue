@@ -37,43 +37,49 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         // dd($request->input());
-        $appointment = Order::create($request->input());
+        $appointment = Order::create(array_merge($request->input(), ["status"=>Order::WAITING]));
+        return redirect()->route("admin.order.index");
+
     }
 
+    public function getDoctorsByService(Request $request){
+        $service = Service::where("id", $request->input("service_id"))->first();
+        return response()->json($service->doctors);
+    }
 
     public function getTime(Request $request)
     {
-        // $time = "30";   
-        // $service = Service::where("id",$request->query("service_id"))->first();
-        // $service1 = 1; //15 min
-        // $service2 = 2; //30 min
-        // $service4 = 4; //1 hour
-        // $service6 = 6; //1:30 hours
-        // $service8 = 8; //2 hours
-        // $free_times=collect();
-        // $count = 0;
-        // $time = 9;
-        // for ($i=0; $i < 48 ; $i++) { 
+        $time = "30";   
+        $service = Service::where("id",$request->query("service_id"))->first();
+        $service1 = 1; //15 min
+        $service2 = 2; //30 min
+        $service4 = 4; //1 hour
+        $service6 = 6; //1:30 hours
+        $service8 = 8; //2 hours
+        $free_times=collect();
+        $count = 0;
+        $time = 9;
+        for ($i=0; $i < 48 ; $i++) { 
             
             
-        //     $minutes = 15 * $count;
-        //     if($count == 4){
-        //         $count = 0;
-        //         $time = $time + 1;
-        //         $free_times->add($time.":00");
-        //     }else{
-        //         $free_times->add($time.":". ($i == 0 ? "00" : $minutes));
-        //     }
+            $minutes = 15 * $count;
+            if($count == 4){
+                $count = 0;
+                $time = $time + 1;
+                $free_times->add($time.":00");
+            }else{
+                $free_times->add($time.":". ($i == 0 ? "00" : $minutes));
+            }
             
-        //     $count = $count + 1;
-        // }
-        // $orders = Order::where("doctor_id",$request->query("doctor_id"))
-        // ->whereDate("date", Carbon::createFromFormat("m/d/Y",$request->query("date")) )
-        // ->with("service")
-        // ->get()->pluck("service.time",'time')
-        // ;   
+            $count = $count + 1;
+        }
+        $orders = Order::where("doctor_id",$request->query("doctor_id"))
+        ->whereDate("date", Carbon::createFromFormat("m/d/Y",$request->query("date")) )
+        ->with("service")
+        ->get()->pluck("service.time",'time')
+        ;   
 
-        // dd($request->query(),$service->time,$orders->toArray(),$free_times);
+        dd($request->query(),$service->time,$orders->toArray(),$free_times);
         return response()->json([ "9:00","10:00","16:00"]);
     }
 
@@ -96,7 +102,7 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view("admin.orders.edit", ["order" => Order::where("id", $id)->first()]);
     }
 
     /**
@@ -108,7 +114,15 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $order = Order::where("id", $id)->first();
+        $order->update($request->input());
+        // $order->fullname = $request->input("fullname");
+        // $order->phone = $request->input("phone");
+        // $order->date = $request->input("date");
+        // $order->time = $request->input("time");
+        // $order->details = $request->input("details");
+        // $order->date = $request->input("date");
+        
     }
 
     /**
@@ -122,5 +136,13 @@ class OrderController extends Controller
         Order::where("id",request()->input("id"))->delete();
         return redirect()->route("admin.order.index");
         
+    }
+    public function approve(){
+        Order::where("id", request()->input("order_id"))->update(["status"=> Order::APPROVED]);
+        return redirect()->route("admin.index");
+    }
+    public function reject(){
+        Order::where("id", request()->input("order_id"))->update(["status"=> Order::CANCELED]);
+        return redirect()->route('admin.index');
     }
 }

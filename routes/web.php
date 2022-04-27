@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\DoctorController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\OrderController;
 use App\Models\Doctor;
+use App\Models\Order;
 use Illuminate\Support\Facades\Route;
 
 // front pages
@@ -54,18 +55,22 @@ Route::prefix("services")->group(function(){
 
 Route::post("/make-appointment",[App\Http\Controllers\OrderController::class,"store"])->name("make-appointment");
 Route::get("/get-time",[App\Http\Controllers\OrderController::class,"getTime"])->name("get-time");
+Route::get("/get-doctors-by-service",[App\Http\Controllers\OrderController::class,"getDoctorsByService"])->name("get-doctors-by-service");
 Route::get("/appointment-table", function(){
     return view("admin.orders.table");
 });
 
 Route::prefix("admin")->group(function(){
     Route::get("/", function(){
-        return view("admin.admin-layout");
-    });
+        return view("admin.index", ["orders"=>Order::all()]);
+    })->name("admin.index");
     Route::prefix("doctors")->group(function(){
         Route::get("/", [DoctorController::class,"index"])->name("admin.doctor.index");
         Route::get("/create",[DoctorController::class,"create"]);
         Route::post("/create",[DoctorController::class,"store"]);
+        Route::post("/", [DoctorController::class,"destroy"]);
+        Route::get("/edit/{id}", [DoctorController::class,"edit"]);
+        Route::post("/edit/{id}", [DoctorController::class,"update"]);
         // Route::update("/{id}",App\Http\Controllers\DoctorController::class,"update");
         // Route::delete("/{id}",App\Http\Controllers\DoctorController::class,"delete"); 
     });
@@ -74,6 +79,8 @@ Route::prefix("admin")->group(function(){
         Route::get("/create", [ServiceController::class,"create"]);
         Route::post("/create", [ServiceController::class,"store"]);
         Route::post("/", [ServiceController::class, "destroy"]);
+        Route::get("/edit/{id}", [ServiceController::class, "edit"]);
+        Route::post("/edit/{id}", [ServiceController::class, "update"]);
 
     });
     Route::prefix("orders")->group(function(){
@@ -81,9 +88,11 @@ Route::prefix("admin")->group(function(){
         Route::get("/create",[OrderController::class, "create"]);
         Route::post("/create",[OrderController::class, "store"]);
         Route::post("/",[OrderController::class, "destroy"]);
+        Route::get("/edit/{id}", [OrderController::class, "edit"]);
+        Route::post("/edit/{id}", [OrderController::class, "update"]);
+        Route::get("/approve", [OrderController::class, "approve"]);
+        Route::get("/reject", [OrderController::class, "reject"]);
     });
-   
-    
 });
 
 

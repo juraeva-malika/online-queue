@@ -34,12 +34,11 @@ echo $doctors[0]->fullname
                         <td>{{$order->details}}</td>
                         <td>{{$order->status}}</td>
                         <td>
-                            <button class="btn btn-secondary mr-3">Edit</button>
-                            <form action="/admin/orders?id={{$order->id}}" method="post">
+                            <a href="/admin/orders/edit/{{$order->id}}" class="btn btn-secondary mr-3">Edit</a>
+                            <form action="/admin/orders?id={{$order->id}}" method="post" style="display:inline;">
                                 @csrf
                                 <button type="submit" class="btn btn-danger">Delete</button>
                             </form>
-                            
                         </td>
                     </tr>
                 @endforeach

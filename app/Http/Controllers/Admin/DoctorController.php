@@ -16,7 +16,7 @@ class DoctorController extends BaseController
         return view("admin.doctors.index", ["doctors" => Doctor::all()]);
     }
     public function create(){
-        return view("admin.doctors.create",);
+        return view("admin.doctors.create");
     }
     public function store(Request $request){
         // dd($request->input());
@@ -25,5 +25,23 @@ class DoctorController extends BaseController
             DoctorService::create(["doctor_id"=> $doctor->id, "service_id"=> $service_id]);
         }
         return redirect()->route('admin.doctor.index');
+    }
+    public function edit($id){
+        return view("admin.doctors.edit",["doctor"=>Doctor::where("id", $id)->first()]);
+    }
+    public function update($id){
+        $doctor = Doctor::where("id", $id)->first();
+        $doctor->fullname=request()->input("fullname");
+        $doctor->phone=request()->input("phone");
+        DoctorService::where("doctor_id", $id)->delete();
+        foreach(request()->input("service_ids") as $service_id){
+            DoctorService::create(["doctor_id"=> $doctor->id, "service_id"=> $service_id]);
+        }
+        $doctor->save();
+        return redirect()->route('admin.doctor.index');
+    }
+    public function destroy(){
+        Doctor::where("id", request()->input("id"))->delete();
+        return  redirect()->route("admin.doctor.index");
     }
 }

@@ -58,7 +58,7 @@ class ServiceController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view ("admin.services.edit", ["service"=>Service::where("id", $id)->first()]);
     }
 
     /**
@@ -70,7 +70,11 @@ class ServiceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $service = Service::where("id", $id)->first();
+        $service->name = $request->input("name");
+        $service->time = $request->input("time");
+        $service->save();
+        return redirect()->route("admin.service.index");
     }
 
     /**

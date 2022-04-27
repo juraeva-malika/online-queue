@@ -18,8 +18,8 @@
                         <td>{{$service->name}}</td>
                         <td>{{$service->time}}</td>
                         <td>
-                            <button class="btn btn-secondary mr-3">Edit</button>
-                            <form method="post" action="/admin/services?id={{$service->id}}">
+                            <a href="/admin/services/edit/{{$service->id}}" class="btn btn-secondary mr-3">Edit</a>
+                            <form method="post" action="/admin/services?id={{$service->id}}" style="display:inline;">
                                 @csrf
                                 <button type="submit" class="btn btn-danger">Delete</button>
                             </form>
