@@ -96,7 +96,4 @@ Route::prefix("admin")->group(function(){
 });
 
 
-
-
-
-
+require __DIR__.'/auth.php';

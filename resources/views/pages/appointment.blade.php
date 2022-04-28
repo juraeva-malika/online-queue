@@ -1,4 +1,4 @@
 @extends("layout.layout")
 @section("content")
-    @include("layout.make-appointment")
+    @include("layout.section-appointment")
 @stop

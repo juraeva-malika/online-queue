@@ -25,7 +25,7 @@ class Order extends Model
     ];
     protected $dates = ['date', ];
     protected $casts = [
-        'date'  => 'date:m/d/Y',
+        'date'  => 'date:Y-m-d',
         
     ];
     public $timestamps = false;

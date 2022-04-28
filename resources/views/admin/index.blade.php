@@ -1,4 +1,6 @@
 @extends("admin.admin-layout")
+
+
 @section("content")
     <div class="wrapper">
         <h1>Incoming appointments:</h1>

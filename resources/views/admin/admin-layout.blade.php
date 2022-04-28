@@ -28,6 +28,13 @@
             <li class="nav-item">
               <a href="/admin/orders" class="nav-link"> Orders</a>
             </li>
+            <li class="nav-item">
+              <form method="POST" action="{{ route('logout') }}">
+                @csrf
+
+                <x-dropdown-link :href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();">{{ __('Log Out') }}</x-dropdown-link>
+              </form>
+            </li>
           </ul>
         </nav>
       </div>

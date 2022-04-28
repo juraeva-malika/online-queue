@@ -4,6 +4,6 @@
     @include("layout.services")
     @include("layout.whytrustus")
     @include("layout.our-doctors")
-    @include("layout.make-appointment")
+    @include("layout.section-appointment")
     @include("layout.feedbacks")
 @stop
