@@ -1,9 +1,9 @@
 
-@extends('layout.layout')
+@extends('layouts.layout')
 
 @section("content")
 
-    @include("layout.slider-banner")
+    @include("layouts.slider-banner")
     <div class="wrapper">
         <div class="container d-flex flex-column  align-items-center ">
             <p class="d-block border rounded-pill py-1 px-4 ">Хирургия</p>

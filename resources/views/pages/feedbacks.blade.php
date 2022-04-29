@@ -1,5 +1,5 @@
-@extends("layout.layout")
+@extends("layouts.layout")
 @section("content")
-    @include("layout.slider-banner")
-    @include("layout.feedbacks")
+    @include("layouts.slider-banner")
+    @include("layouts.feedbacks")
 @stop

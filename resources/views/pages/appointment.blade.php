@@ -1,4 +1,4 @@
-@extends("layout.layout")
+@extends("layouts.layout")
 @section("content")
-    @include("layout.section-appointment")
+    @include("layouts.section-appointment")
 @stop

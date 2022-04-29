@@ -8,24 +8,24 @@
     <meta content="" name="keywords">
     <meta content="" name="description">
     
-    @include("layout.style")
+    @include("layouts.style")
     
 </head>
 
 <body>
 
-   @include("layout.top-bar")
+   @include("layouts.top-bar")
 
-    @include("layout.navbar")
+    @include("layouts.navbar")
     
     @yield("content")
 
-    @include("layout.footer")
+    @include("layouts.footer")
     
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
 
-    @include("layout.script")
+    @include("layouts.script")
 </body>
 
 </html>

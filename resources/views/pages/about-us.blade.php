@@ -1,6 +1,6 @@
-@extends("layout.layout")
+@extends("layouts.layout")
 @section("content")
-    @include("layout.slider-banner")
-    @include("layout.whytrustus")
-    @include("layout.our-doctors")
+    @include("layouts.slider-banner")
+    @include("layouts.whytrustus")
+    @include("layouts.our-doctors")
 @stop

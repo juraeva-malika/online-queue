@@ -176,7 +176,7 @@
          ]
 ?>
 
-@extends("layout.layout")
+@extends("layouts.layout")
     @section("content")
         <div class="container">
             <div class="chart">

@@ -11,14 +11,14 @@
              <input type="text" name="phone" class="form-control border-0" placeholder="Номер телефона" style="height: 55px;">
         </div>
         <div class="col-12 col-sm-6">
-            <select oninput = "getDoctorsByService(event.target.value)" name="service_id" class="form-select border-0" style="height: 55px;">
+            <select oninput = "getDoctorsByService(event.target.value); getTime()" name="service_id" class="form-select border-0" style="height: 55px;">
                 @foreach (App\Models\Service::get() as $service  )
                     <option value={{$service->id}}>{{$service->name}}</option>
                 @endforeach
             </select>
         </div>
         <div class="col-12 col-sm-6">
-            <select name="doctor_id" class="form-select border-0" style="height: 55px;">
+            <select oninput="getTime()" name="doctor_id" class="form-select border-0" style="height: 55px;">
                 <option selected>Выберите доктора</option>
                 @foreach(App\Models\Doctor::get() as $doctor)
                     <option value={{$doctor->id}}>{{$doctor->fullname}}</option>

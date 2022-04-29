@@ -47,86 +47,89 @@ class OrderController extends Controller
         return response()->json($service->doctors);
     }
 
-    public function getTime(Request $request)
-    {
-        $timeSchedule = [
-            "9:00"=>["status"=>"free"],
-            "9:15"=>["status"=>"free"],
-            "9:30"=>["status"=>"free"],
-            "9:45"=>["status"=>"free"],
-            "10:00"=>["status"=>"free"],
-            "10:15"=>["status"=>"free"],
-            "10:30"=>["status"=>"free"],
-            "10:45"=>["status"=>"free"],
-            "11:00"=>["status"=>"free"],
-            "11:15"=>["status"=>"free"],
-            "11:30"=>["status"=>"free"],
-            "11:45"=>["status"=>"free"],
-            "12:00"=>["status"=>"free"],
-            "12:15"=>["status"=>"free"],
-            "12:30"=>["status"=>"free"],
-            "12:45"=>["status"=>"free"],
-            "13:00"=>["status"=>"free"],
-            "13:15"=>["status"=>"free"],
-            "13:30"=>["status"=>"free"],
-            "13:45"=>["status"=>"free"],
-            "14:00"=>["status"=>"free"],
-            "14:15"=>["status"=>"free"],
-            "14:30"=>["status"=>"free"],
-            "14:45"=>["status"=>"free"],
-            "15:00"=>["status"=>"free"],
-            "15:15"=>["status"=>"free"],
-            "15:30"=>["status"=>"free"],
-            "15:45"=>["status"=>"free"],
-            "16:00"=>["status"=>"free"],
-            "16:15"=>["status"=>"free"],
-            "16:30"=>["status"=>"free"],
-            "16:45"=>["status"=>"free"],
-            "17:00"=>["status"=>"free"],
-            "17:15"=>["status"=>"free"],
-            "17:30"=>["status"=>"free"],
-            "17:45"=>["status"=>"free"],
-            "18:00"=>["status"=>"free"],
-            "18:15"=>["status"=>"free"],
-            "18:30"=>["status"=>"free"],
-            "18:45"=>["status"=>"free"],
-            "19:00"=>["status"=>"free"],
-            "19:15"=>["status"=>"free"],
-            "19:30"=>["status"=>"free"],
-            "19:45"=>["status"=>"free"],
-        ];
-        // $time = "30";   
-        // $service = Service::where("id",$request->query("service_id"))->first();
-        // $service1 = 1; //15 min
-        // $service2 = 2; //30 min
-        // $service4 = 4; //1 hour
-        // $service6 = 6; //1:30 hours
-        // $service8 = 8; //2 hours
-        // $free_times=collect();
-        // $count = 0;
-        // $time = 9;
-        // for ($i=0; $i < 48 ; $i++) { 
-            
-            
-        //     $minutes = 15 * $count;
-        //     if($count == 4){
-        //         $count = 0;
-        //         $time = $time + 1;
-        //         $free_times->add($time.":00");
-        //     }else{
-        //         $free_times->add($time.":". ($i == 0 ? "00" : $minutes));
-        //     }
-            
-        //     $count = $count + 1;
-        // }
-        // $orders = Order::where("doctor_id",$request->query("doctor_id"))
-        // ->whereDate("date", Carbon::createFromFormat("m/d/Y",$request->query("date")) )
-        // ->with("service")
-        // ->get()->pluck("service.time",'time')
-        // ;   
+    function generateScheduleTimesArray(){
+        $free_times=[];
+        $count = 0;
+        $time = 9;
+        for ($i=0; $i < 48 ; $i++) { 
+            $minutes = 15 * $count;
+            if($count == 4){
+                $count = 0;
+                $time = $time + 1;
+                $free_times[($time.":00")] = "free";
+            }else{
+                $free_times[($time < 10 ? "0".$time : $time ).":". ($i == 0 ? "00" : $minutes)] = "free";
+            }
+            $count++;
+        }
+        return $free_times;
+    }
 
-        // dd($request->query(),$service->time,$orders->toArray(),$free_times);
-        return response()->json([ "9:00","10:00","16:00"]);
+    function generateBusyTimesArray(Array $array){
+        $newArray = [];
+        foreach($array as $key => $value )  {
+            for ($i=0; $i < $value ; $i++) { 
+                $timeArray = explode(":",$key);
+                $time = Carbon::createFromTime($timeArray[0],$timeArray[1]);
+                $time->addMinute(15*$i);
+                $newArray[$time->format("H:i")] = "busy";
+            }
+        }
+        
+        
+        return $newArray;
+    }
+
+    public function getTime(Request $request)
+    {  
+        $service = Service::where("id",$request->query("service_id"))->first();
+        $service->time;
+        $scheduleTimes = $this->generateScheduleTimesArray();
+       
+        $orders = Order::where("doctor_id",$request->query("doctor_id"))
+        ->whereDate("date", Carbon::createFromFormat("Y-m-d",$request->query("date")) )
+        ->with("service")
+        ->get()->pluck("service.time",'time')
+        ;   
+        $busyTimes = $this->generateBusyTimesArray($orders->toArray());
+        // $busyTimes = $this->generateBusyTimesArray([ "9:00"=>4, "16:15" => 2,  "17:15"=>4 ]);
+
+        $doctorSchedule = collect($scheduleTimes)->merge($busyTimes);
+        
+        $free_times = collect();
+        $current_time="";
+        
+        $compositeCounts = 1;
+        foreach($doctorSchedule as $key => $value){
+            if($value == "busy") {
+                $compositeCounts = 1;
+                $current_time="";
+                continue;
+            };
+            
+            if(empty($current_time)){
+                $current_time= $key;
+            }
+
+            if($compositeCounts == $service->time  ){
+                $free_times->add($current_time);
+                $current_time = "";
+                $compositeCounts = 1;
+            }else{
+                $compositeCounts++;
+            }
+         
+        }
+        // dd($free_times,$doctorSchedule);
+
+        // dd($service->time, $doctorSchedule);
+
+        
+        // dd($request->query(),$service->time,$orders->toArray(),$scheduleTimes);
+        $times = $free_times->map(function($key,$value){
+             return $key;   
+        });
+        return response()->json($times);
     }
 
     /**

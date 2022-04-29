@@ -12,7 +12,11 @@ function getDoctorsByService(service_id){
     })
 }
 function getTime(){
-    fetch("/get-time").then(async c => {
+    let doctor_id = document.querySelector('[name="doctor_id"]').value
+    let date = document.querySelector('[name="date"]').value
+    let service_id = document.querySelector('[name="service_id"]').value;
+    if(service_id && doctor_id && date )
+    fetch(`/get-time?date=${date}&doctor_id=${doctor_id}&service_id=${service_id}`).then(async c => {
          let freeTimes= await c.json();
          let timeElement=document.querySelector("[name=\"time\"]");
          timeElement.innerHTML="";

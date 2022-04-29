@@ -60,7 +60,9 @@ Route::get("/appointment-table", function(){
     return view("admin.orders.table");
 });
 
-Route::prefix("admin")->group(function(){
+Route::prefix("admin")
+->middleware(['auth'])
+->group(function(){
     Route::get("/", function(){
         return view("admin.index", ["orders"=>Order::all()]);
     })->name("admin.index");
